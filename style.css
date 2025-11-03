@@ -1,0 +1,400 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+  transition: .15s ease;
+}
+
+html, body {
+  overflow-x: hidden;
+  background: #f5f6ff;
+  color: #111827;
+}
+
+h1 {
+  text-align: center;
+  font-size: 42px;
+  font-weight: 900;
+  margin-top: 18px;
+  color: #4338ca;
+}
+
+#auth-section {
+  width: 400px;
+  margin: auto;
+  background: #ffffff;
+  padding: 22px;
+  border-radius: 18px;
+  box-shadow: 0 4px 18px rgba(0,0,0,.08);
+  display: flex;
+  flex-direction: column;
+}
+
+#auth-section h2 {
+  font-weight: 800;
+  font-size: 20px;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  color: #4338ca;
+  text-align: center;
+}
+
+.register {
+  font-weight: 800;
+  font-size: 20px;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  color: #4338ca;
+  text-align: center;
+}
+
+#auth-section input {
+  width: 100%;
+  padding: 13px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  border: 2px solid #e0e0ff;
+  font-size: 15px;
+  outline: none;
+  background: #fafaff;
+  font-weight: 600;
+}
+
+#auth-section input:focus {
+  background: #ffffff;
+  border-color: #4338ca;
+}
+
+#auth-section button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 800;
+  letter-spacing: .3px;
+  background: #4338ca;
+  color: #fff;
+  cursor: pointer;
+  margin-top: 3px;
+}
+
+#auth-section button:hover {
+  background: #372faa;
+  transform: translateY(-2px);
+}
+
+#user-profile {
+  position: absolute;
+  top: 18px;
+  right: 26px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+}
+
+.profile-circle {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background: #4338ca;
+  color: #fff;
+  font-size: 18px;
+}
+
+#notes-section {
+  width: 92%;
+  max-width: 920px;
+  margin: auto;
+  margin-top: 20px;
+  padding-bottom: 40px;
+}
+
+#notes-section h2 {
+  font-weight: 900;
+  color: #4338ca;
+  text-transform: uppercase;
+  margin: 10px 0;
+  font-size: 21px;
+}
+
+#notes-section button {
+  padding: 12px 16px;
+  border-radius: 10px;
+  border: none;
+  font-weight: 800;
+  cursor: pointer;
+  margin-right: 6px;
+  margin-top: 4px;
+}
+
+#notes-section button:first-child {
+  background: #ef4444;
+  color: white;
+}
+
+#notes-section button:first-child:hover {
+  background: #d93434;
+  transform: translateY(-2px);
+}
+
+#note-title {
+  width: 100%;
+  padding: 13px;
+  border-radius: 10px;
+  border: 2px solid #e0e0ff;
+  font-size: 15px;
+  outline: none;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+#note-title:focus {
+  border-color: #4338ca;
+}
+
+#note-content {
+  width: 100%;
+  resize: vertical;
+  min-height: 130px;
+  padding: 15px;
+  border-radius: 10px;
+  border: 2px solid #e0e0ff;
+  font-size: 15px;
+  outline: none;
+  margin-bottom: 10px;
+  font-weight: 600;
+  background: #fafaff;
+  line-height: 1.45;
+  white-space: pre-wrap;
+}
+
+#note-content:focus {
+  border-color: #4338ca;
+  background: #ffffff;
+}
+
+#cancel-edit {
+  background: #6b7280 !important;
+  color: white;
+  margin-left: 6px;
+}
+
+#cancel-edit:hover {
+  background: #4b5563 !important;
+  transform: translateY(-2px);
+}
+
+.notes-grid {
+  width: 110%;
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(260px,1fr));
+  gap: 20px;
+}
+
+.note-card {
+  background: #ffffff;
+  padding: 24px;
+  border-radius: 14px;
+  box-shadow: 0 4px 14px rgba(0,0,0,.08);
+  cursor: pointer;
+  position: relative;
+  border-left: 5px solid #4338ca;
+  user-select: none;
+}
+
+.note-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 7px 20px rgba(0,0,0,.1);
+}
+
+.note-card h3 {
+  font-weight: 800;
+  font-size: 18px;
+  color: #4338ca;
+  margin-bottom: 8px;
+}
+
+.note-card p {
+  white-space: pre-wrap;
+  line-height: 1.45;
+  font-weight: 600;
+  color: #111827;
+  font-size: 12px;
+}
+
+.card-actions {
+  margin-top: 14px;
+  display: flex;
+  gap: 12px;
+}
+
+/* ✅ Clean Edit and Delete Buttons */
+.card-actions .edit {
+  background: #22c55e;
+}
+
+.card-actions .edit:hover {
+  background: #16a34a;
+  transform: translateY(-2px);
+}
+
+.card-actions .delete {
+  background: #ef4444;
+}
+
+.card-actions .delete:hover {
+  background: #dc2626;
+  transform: translateY(-2px);
+}
+
+/* ✅ Clean Purple Download Button */
+.download-btn {
+  display: block;
+  width: 100%;
+  margin-top: 18px;
+  padding: 12px;
+  background: #4338ca;
+  color: #fff;
+  font-weight: 800;
+  font-size: 15px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.download-btn:hover {
+  background: #372faa;
+  transform: translateY(-2px);
+}
+
+.download-btn:active {
+  transform: scale(0.97);
+}
+
+/* ✅ Popup */
+.popup-bg {
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,.55);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-card {
+  width: 88%;
+  max-width: 500px;
+  background: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 8px 28px rgba(0,0,0,.2);
+  position: relative;
+  animation: fadePop .2s ease;
+  max-height: 75vh;
+  overflow-y: auto;
+}
+
+.popup-card h3 {
+  color: #4338ca;
+  font-weight: 900;
+  font-size: 22px;
+  margin-bottom: 12px;
+}
+
+.popup-card p {
+  white-space: pre-wrap;
+  line-height: 1.6;
+  font-weight: 600;
+  font-size: 15.5px;
+  color: #111827;
+  max-height: 50vh;
+  overflow-y: auto;
+}
+
+/* ✅ Dark mode popup text readable */
+body.dark-mode .popup-card {
+  background: #1f1f2e;
+}
+
+body.dark-mode .popup-card h3,
+body.dark-mode .popup-card p {
+  color: #ffffff;
+}
+
+.popup-close {
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  background: none;
+  border: none;
+  font-size: 26px;
+  cursor: pointer;
+  font-weight: 900;
+  color: #ef4444;
+}
+
+@keyframes fadePop {
+  from { opacity: 0; transform: scale(.93); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4338ca;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #e0e0ff;
+}
+
+button:active {
+  transform: scale(.96);
+}
+
+@media(max-width: 710px) {
+  #auth-section {
+    width: 90%;
+  }
+  h1 {
+    font-size: 36px;
+  }
+  #user-profile {
+    top: 10px;
+    right: 10px;
+  }
+}
+
+@media(max-width: 560px) {
+  .notes-grid {
+    grid-template-columns: repeat(auto-fill,minmax(100%,1fr));
+  }
+  .note-card {
+    padding: 18px;
+  }
+}
+
+@media(max-width:440px) {
+  #auth-section {
+    padding: 18px;
+  }
+  #note-content {
+    min-height: 150px;
+  }
+  .popup-card {
+    padding: 24px;
+  }
+}

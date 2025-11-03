@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>UniNotes</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <h1>NoteHub</h1>
+
+  <!-- Login/Register Section -->
+  <div id="auth-section">
+    <h2>Login</h2>
+    <input type="text" id="login-email" placeholder="Email">
+    <input type="password" id="login-password" placeholder="Password">
+    <button onclick="login()">Login</button>
+
+    <h2 style="margin-top: 30px;">Register</h2>
+    <input type="text" id="register-name" placeholder="Name">
+    <input type="text" id="register-email" placeholder="Email">
+    <input type="password" id="register-password" placeholder="Password">
+    <button onclick="register()">Register</button>
+  </div>
+
+  <!-- User Profile -->
+  <div id="user-profile" style="display:none;">
+    <span class="profile-circle" id="profile-letter"></span>
+    <span id="profile-name"></span>
+  </div>
+
+  <!-- Notes Section -->
+  <div id="notes-section" style="display:none;">
+    <button onclick="logout()">Logout</button>
+
+    <h2>Add/Edit Note</h2>
+    <input type="text" id="note-title" placeholder="Title">
+    <textarea id="note-content" rows="6" placeholder="Content"></textarea>
+    <button onclick="saveNote()">Save Note</button>
+    <button id="cancel-edit" onclick="resetNoteForm()" style="display:none;">Cancel</button>
+
+    <h2>Your Notes</h2>
+    <div class="notes-grid" id="notes-list"></div>
+  </div>
+
+  <!-- Note Popup Modal -->
+  <div id="popup-bg" class="popup-bg" style="display: none;">
+    <div class="popup-card">
+      <button class="popup-close" onclick="closePopup()">×</button>
+      <h3 id="popup-title"></h3>
+      <p id="popup-content"></p>
+      <!-- ✅ Added Download Button inside Popup -->
+      <button id="downloadNoteBtn" class="download-btn">Download Note</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+
+  <!-- ✅ Added JavaScript for Download Feature -->
+  <script>
+    document.getElementById("downloadNoteBtn").addEventListener("click", function () {
+      const noteTitle = document.getElementById("popup-title").innerText || "Note";
+      const noteContent = document.getElementById("popup-content").innerText || "";
+
+      // Create file content
+      const text = `${noteTitle}\n\n${noteContent}`;
+      const blob = new Blob([text], { type: "text/plain" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = `${noteTitle}.txt`;
+      link.click();
+      URL.revokeObjectURL(link.href);
+    });
+  </script>
+
+</body>
+
+</html>
