@@ -3,7 +3,10 @@
 let token = null;
 let user = null;
 let editingNoteId = null;
-const apiBase = "https://notehub-4si4.onrender.com";
+const apiBase = window.location.hostname.includes("localhost")
+  ? "http://localhost:5000/api"
+  : "https://notehub-4si4.onrender.com/api";
+
 /* -------------------
    UI show/hide helper
    ------------------- */
