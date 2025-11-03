@@ -3,7 +3,7 @@
 let token = null;
 let user = null;
 let editingNoteId = null;
-const apiBase = "http://localhost:5000" || "https://notehub.vercel.app";
+const apiBase = "http://localhost:5000" || "https://notehub-4si4.onrender.com";
 
 /* -------------------
    UI show/hide helper
