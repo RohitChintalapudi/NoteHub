@@ -1,4 +1,4 @@
-// app.js — updated: persistent session + robust token handling
+// app.js — updated: persistent session + robust token handling + frontend validation
 
 let token = null;
 let user = null;
@@ -18,7 +18,6 @@ function show(section) {
   document.getElementById("user-profile").style.display =
     section === "notes" ? "flex" : "none";
 
-  // Hide/show theme toggle depending on section (if it exists)
   const themeToggleContainer = document.getElementById(
     "theme-toggle-container"
   );
@@ -31,8 +30,20 @@ function show(section) {
    Authentication
    ------------------- */
 function login() {
-  const email = document.getElementById("login-email").value;
-  const password = document.getElementById("login-password").value;
+  const email = document.getElementById("login-email").value.trim();
+  const password = document.getElementById("login-password").value.trim();
+
+  // ✅ Validation
+  if (!email || !password) {
+    alert("⚠️ Please fill in both email and password.");
+    return;
+  }
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailPattern.test(email)) {
+    alert("⚠️ Please enter a valid email address.");
+    return;
+  }
+
   fetch(apiBase + "/users/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -42,9 +53,7 @@ function login() {
     .then((data) => {
       if (data.token) {
         token = data.token;
-        // store token & user for session persistence
         localStorage.setItem("token", token);
-        // some backends return user info separately; try to pick it
         user = data.user || data;
         localStorage.setItem("user", JSON.stringify(user));
         showProfile();
@@ -61,9 +70,25 @@ function login() {
 }
 
 function register() {
-  const name = document.getElementById("register-name").value;
-  const email = document.getElementById("register-email").value;
-  const password = document.getElementById("register-password").value;
+  const name = document.getElementById("register-name").value.trim();
+  const email = document.getElementById("register-email").value.trim();
+  const password = document.getElementById("register-password").value.trim();
+
+  // ✅ Validation
+  if (!name || !email || !password) {
+    alert("⚠️ Please fill in all fields.");
+    return;
+  }
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailPattern.test(email)) {
+    alert("⚠️ Please enter a valid email address.");
+    return;
+  }
+  if (password.length < 6) {
+    alert("⚠️ Password must be at least 6 characters long.");
+    return;
+  }
+
   fetch(apiBase + "/users/register", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -118,7 +143,6 @@ function fetchNotes() {
     headers: { Authorization: "Bearer " + token },
   })
     .then(async (res) => {
-      // if unauthorized, clear session and show login
       if (res.status === 401 || res.status === 403) {
         console.warn("Token invalid or expired, logging out.");
         logout();
@@ -135,7 +159,6 @@ function fetchNotes() {
     })
     .catch((err) => {
       console.error("Fetch notes error:", err);
-      // If user is currently on notes view, fallback to auth
       if (document.getElementById("notes-section").style.display === "block") {
         alert("Failed to fetch notes. Please login again.");
         logout();
@@ -150,8 +173,6 @@ function renderNotes(notes) {
   notes.forEach((note) => {
     const div = document.createElement("div");
     div.className = "note-card";
-
-    // If a click originates from a button (or inside one), don't open popup
     div.addEventListener("click", (e) => {
       if (e.target.closest && e.target.closest("button")) return;
       showNotePopup(note);
@@ -226,7 +247,7 @@ function deleteNote(event, id) {
   })
     .then(async (res) => {
       if (res.status === 401 || res.status === 403) {
-        logout(); // token invalid
+        logout();
         return;
       }
       if (!res.ok) {
@@ -255,7 +276,6 @@ function downloadNote(event, title, content) {
 
 function editNote(event, id, title, content) {
   if (event && event.stopPropagation) event.stopPropagation();
-
   editingNoteId = id;
   const titleInput = document.getElementById("note-title");
   const contentInput = document.getElementById("note-content");
@@ -263,20 +283,23 @@ function editNote(event, id, title, content) {
   if (contentInput) contentInput.value = content || "";
   const cancelBtn = document.getElementById("cancel-edit");
   if (cancelBtn) cancelBtn.style.display = "inline";
-
-  // focus the title input
   if (titleInput) {
     titleInput.focus();
     const len = titleInput.value.length;
     titleInput.setSelectionRange(len, len);
   }
-
   show("notes");
 }
 
 function saveNote() {
-  const title = document.getElementById("note-title").value;
-  const content = document.getElementById("note-content").value;
+  const title = document.getElementById("note-title").value.trim();
+  const content = document.getElementById("note-content").value.trim();
+
+  // ✅ Validation
+  if (!title || !content) {
+    alert("⚠️ Both title and content are required.");
+    return;
+  }
 
   if (editingNoteId) {
     fetch(apiBase + "/notes/" + editingNoteId, {

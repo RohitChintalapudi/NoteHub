@@ -10,18 +10,20 @@
 <body>
   <h1>NoteHub</h1>
 
-  <!-- Login/Register Section -->
+  <!-- Authentication Section -->
   <div id="auth-section">
     <h2>Login</h2>
     <input type="text" id="login-email" placeholder="Email">
     <input type="password" id="login-password" placeholder="Password">
     <button onclick="login()">Login</button>
+    <p id="login-error" class="error"></p>
 
     <h2 style="margin-top: 30px;">Register</h2>
     <input type="text" id="register-name" placeholder="Name">
     <input type="text" id="register-email" placeholder="Email">
     <input type="password" id="register-password" placeholder="Password">
     <button onclick="register()">Register</button>
+    <p id="register-error" class="error"></p>
   </div>
 
   <!-- User Profile -->
@@ -39,6 +41,7 @@
     <textarea id="note-content" rows="6" placeholder="Content"></textarea>
     <button onclick="saveNote()">Save Note</button>
     <button id="cancel-edit" onclick="resetNoteForm()" style="display:none;">Cancel</button>
+    <p id="note-error" class="error"></p>
 
     <h2>Your Notes</h2>
     <div class="notes-grid" id="notes-list"></div>
@@ -50,20 +53,18 @@
       <button class="popup-close" onclick="closePopup()">×</button>
       <h3 id="popup-title"></h3>
       <p id="popup-content"></p>
-      <!-- ✅ Added Download Button inside Popup -->
       <button id="downloadNoteBtn" class="download-btn">Download Note</button>
     </div>
   </div>
 
   <script src="app.js"></script>
 
-  <!-- ✅ Added JavaScript for Download Feature -->
   <script>
+    // Download Note from Popup
     document.getElementById("downloadNoteBtn").addEventListener("click", function () {
       const noteTitle = document.getElementById("popup-title").innerText || "Note";
       const noteContent = document.getElementById("popup-content").innerText || "";
 
-      // Create file content
       const text = `${noteTitle}\n\n${noteContent}`;
       const blob = new Blob([text], { type: "text/plain" });
       const link = document.createElement("a");
@@ -73,7 +74,6 @@
       URL.revokeObjectURL(link.href);
     });
   </script>
-
 </body>
 
 </html>
