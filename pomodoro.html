@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pomodoro Timer - NoteHub</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <h1>🍅 Pomodoro Timer</h1>
+
+  <!-- Navigation -->
+  <div class="pomodoro-nav">
+    <a href="index.html" class="back-btn">← Back to Notes</a>
+  </div>
+
+  <!-- Pomodoro Timer Container -->
+  <div class="pomodoro-container">
+    <!-- Settings Panel -->
+    <div class="pomodoro-settings">
+      <h3>Timer Settings</h3>
+      <div class="settings-row">
+        <label for="focus-time">Focus Time (minutes):</label>
+        <input type="number" id="focus-time" min="1" max="60" value="25">
+      </div>
+      <div class="settings-row">
+        <label for="break-time">Break Time (minutes):</label>
+        <input type="number" id="break-time" min="1" max="30" value="5">
+      </div>
+      <button id="save-settings" class="settings-btn">Save Settings</button>
+    </div>
+
+    <!-- Timer Display -->
+    <div class="timer-display">
+      <div class="timer-mode" id="timer-mode">Focus</div>
+      <div class="timer-circle">
+        <svg class="timer-svg" viewBox="0 0 100 100">
+          <circle class="timer-bg" cx="50" cy="50" r="45"></circle>
+          <circle class="timer-progress" id="timer-progress" cx="50" cy="50" r="45"></circle>
+        </svg>
+        <div class="timer-text">
+          <div class="timer-time" id="timer-time">25:00</div>
+        </div>
+      </div>
+      <div class="timer-controls">
+        <button id="start-pause-btn" class="timer-btn primary">Start</button>
+        <button id="reset-btn" class="timer-btn secondary">Reset</button>
+      </div>
+    </div>
+
+    <!-- Stats Panel -->
+    <div class="pomodoro-stats">
+      <h3>Today's Progress</h3>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-number" id="completed-pomodoros">0</div>
+          <div class="stat-label">Completed</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" id="focus-minutes">0</div>
+          <div class="stat-label">Focus Minutes</div>
+        </div>
+      </div>
+      <button id="reset-stats" class="reset-stats-btn">Reset Stats</button>
+    </div>
+  </div>
+
+  <script src="pomodoro.js"></script>
+</body>
+
+</html>
+
