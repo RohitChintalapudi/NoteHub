@@ -114,7 +114,15 @@ function register() {
     });
 }
 
-function logout() {
+function logout(skipConfirmation = false) {
+  // Ask for confirmation only if it's a user-initiated logout
+  if (!skipConfirmation) {
+    const confirmed = confirm("Are you sure you want to logout?");
+    if (!confirmed) {
+      return; // User cancelled, don't logout
+    }
+  }
+  
   token = null;
   user = null;
   editingNoteId = null;
@@ -145,7 +153,7 @@ function fetchNotes() {
     .then(async (res) => {
       if (res.status === 401 || res.status === 403) {
         console.warn("Token invalid or expired, logging out.");
-        logout();
+        logout(true);
         return;
       }
       if (!res.ok) {
@@ -161,7 +169,7 @@ function fetchNotes() {
       console.error("Fetch notes error:", err);
       if (document.getElementById("notes-section").style.display === "block") {
         alert("Failed to fetch notes. Please login again.");
-        logout();
+        logout(true);
       }
     });
 }
@@ -247,7 +255,7 @@ function deleteNote(event, id) {
   })
     .then(async (res) => {
       if (res.status === 401 || res.status === 403) {
-        logout();
+        logout(true);
         return;
       }
       if (!res.ok) {
@@ -312,7 +320,7 @@ function saveNote() {
     })
       .then(async (res) => {
         if (res.status === 401 || res.status === 403) {
-          logout();
+          logout(true);
           return;
         }
         if (!res.ok) {
@@ -341,7 +349,7 @@ function saveNote() {
     })
       .then(async (res) => {
         if (res.status === 401 || res.status === 403) {
-          logout();
+          logout(true);
           return;
         }
         if (!res.ok) {
@@ -375,3 +383,25 @@ function resetNoteForm() {
 window.closePopup = closePopup;
 window.deleteNote = deleteNote;
 window.editNote = editNote;
+
+/* -------------------
+   Check if user is already logged in
+   ------------------- */
+window.addEventListener("DOMContentLoaded", function () {
+  const savedToken = localStorage.getItem("token");
+  const savedUser = localStorage.getItem("user");
+  
+  if (savedToken && savedUser) {
+    try {
+      token = savedToken;
+      user = JSON.parse(savedUser);
+      showProfile();
+      show("notes");
+      fetchNotes();
+    } catch (err) {
+      console.error("Error loading saved session:", err);
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+    }
+  }
+});

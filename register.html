@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>NoteHub</title>
+  <title>Register - NoteHub</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -13,12 +13,13 @@
 
   <!-- Authentication Section -->
   <div id="auth-section">
-    <h2>Login</h2>
-    <input type="text" id="login-email" placeholder="Email">
-    <input type="password" id="login-password" placeholder="Password">
-    <button onclick="login()">Login</button>
-    <p id="login-error" class="error"></p>
-    <p class="auth-switch">Don't have an account? <a href="register.html">Sign Up</a></p>
+    <h2>Register</h2>
+    <input type="text" id="register-name" placeholder="Name">
+    <input type="text" id="register-email" placeholder="Email">
+    <input type="password" id="register-password" placeholder="Password">
+    <button onclick="register()">Register</button>
+    <p id="register-error" class="error"></p>
+    <p class="auth-switch">Already have an account? <a href="index.html">Sign In</a></p>
   </div>
 
   <!-- User Profile -->
@@ -72,3 +73,4 @@
 </body>
 
 </html>
+
